@@ -15,7 +15,7 @@ def createRadio(opt, var):
 
 vars= []
 
-f= file('./config/config.txt','r')
+f= file('.' + os.path.sep + 'config' + os.path.sep + 'excel_format.txt','r')
 for line in f:
     if line.startswith('::'):
         data= line[2:].rstrip().split('::')

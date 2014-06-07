@@ -4,6 +4,7 @@
 # Import modules for CGI handling 
 from openpyxl import load_workbook
 import cgi
+import os
 
 # Create instance of FieldStorage 
 form = cgi.FieldStorage() 
@@ -19,7 +20,14 @@ while True:
     vars.append(var)
 
 # Open and update the excel file
-excel_file='./excel_file/437.xlsx'
+excel_file=''
+fname_conf='.' + os.path.sep + 'config' + os.path.sep + 'config.txt'
+fconf= file(fname_conf)
+for line in fconf:
+    if line.startswith('excel_file='):
+        line= line.rstrip()
+        line= line[12:len(line)-1]
+        excel_file= line
 wb= load_workbook(excel_file)
 ws=wb.get_active_sheet()
 

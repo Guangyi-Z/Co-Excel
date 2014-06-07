@@ -1,3 +1,4 @@
+
 ###########################################################################
 # FORMAT
 #
@@ -11,8 +12,8 @@
 # * radio(T,F)
 ###########################################################################
 
-::姓名::textarea
-::联系电话::textarea
-::是否留在学校::radio(T,F)
-::地点（如果回家）::textarea
-::地点（如果出游）::textarea
+::Name::textarea
+::Phone::textarea
+::Stay At School::radio(T,F)
+::Where If Go Home::textarea
+::Where If Go Traveling::textarea
