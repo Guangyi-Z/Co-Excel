@@ -5,6 +5,13 @@
 from openpyxl import load_workbook
 import cgi
 import os
+import sys
+
+PACKAGE_PARENT = '..'
+SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
+sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
+
+import read_conf
 
 # Create instance of FieldStorage 
 form = cgi.FieldStorage() 
@@ -20,14 +27,7 @@ while True:
     vars.append(var)
 
 # Open and update the excel file
-excel_file=''
-fname_conf='.' + os.path.sep + 'config' + os.path.sep + 'config.txt'
-fconf= file(fname_conf)
-for line in fconf:
-    if line.startswith('excel_file='):
-        line= line.rstrip()
-        line= line[12:len(line)-1]
-        excel_file= line
+excel_file= read_conf.read_config('excel_file')
 wb= load_workbook(excel_file)
 ws=wb.get_active_sheet()
 
