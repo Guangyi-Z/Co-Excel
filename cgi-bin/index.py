@@ -1,11 +1,11 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 import os
 import sys
-import re
 
 form= ''
-action= '/index_action.py'
+action= 'index_action.py'
 
 def createText(value, var):
     return value + '<input type="text" name="'+var+'"/>  <br />'
@@ -15,14 +15,10 @@ def createRadio(opt, var):
 
 vars= []
 
-f= file('config.txt','r')
+f= file('./config/config.txt','r')
 for line in f:
     if line.startswith('::'):
-        if line.endswith('\n'):
-            line= line[2:len(line)-1]
-        else :
-            line= line[2:]
-        data= line.split('::')
+        data= line[2:].rstrip().split('::')
         name= data[0]
         typ= data[1]
         if typ == 'textarea':
@@ -31,7 +27,8 @@ for line in f:
         elif typ.startswith('radio'):
             form= form + name
             vars.append('var' + str((len(vars)+1)))
-            for opt in typ[6:len(typ)-1].strip().split(','):
+            for opt in typ[typ.find('(')+1:typ.find(')')].strip().split(','):
+                opt= opt.strip()
                 form= form + createRadio(opt, vars[len(vars)-1])
             form= form + '<br/>'
         else:
@@ -39,7 +36,7 @@ for line in f:
 f.close()
 
 html= '<form action="'\
-    + action + '" method="post" >'\
+    + action + '" method="post" accept-charset="utf-8">'\
     + form\
     + '<input type=hidden name="inputCount" value="'+ str(len(vars)) +'" />'\
     + '<input type="submit" value="Submit" /></form>'

@@ -5,7 +5,6 @@
 from openpyxl import load_workbook
 import cgi
 
-
 # Create instance of FieldStorage 
 form = cgi.FieldStorage() 
 
@@ -20,11 +19,9 @@ while True:
     vars.append(var)
 
 # Open and update the excel file
-excel_file='excel_file/437.xlsx'
+excel_file='./excel_file/437.xlsx'
 wb= load_workbook(excel_file)
 ws=wb.get_active_sheet()
-
-# Check duplicate
 
 # Add the new row
 for row in ws.rows:
@@ -32,7 +29,7 @@ for row in ws.rows:
         count= 0
         for key in vars:
             value= form.getvalue(key, default=None)
-            row[count].value=value..encode('')
+            row[count].value=value
             count+= 1
         break
 
@@ -41,6 +38,7 @@ wb.save(excel_file)
 
 print "Content-type:text/html\r\n\r\n"
 print "<html>"
+print '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />'
 print "<head>"
 print "<title>Hello - Second CGI Program</title>"
 print "</head>"
